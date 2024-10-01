@@ -3,6 +3,7 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine, inspect
 import sys
+import hopsworks
 
 # Define the parent directory path
 parent_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -17,101 +18,104 @@ config_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..',
 if not os.path.isfile(config_file_path):
     raise FileNotFoundError(f"Configuration file not found: {config_file_path}")
 
-
 class DataCleaningPipeline:
     def __init__(self):
         self.cleaning_obj = DataClean()
         self.engine = self.cleaning_obj.engine
 
     def get_all_tables(self):
-        """
-        Get all table names from the database.
-        """
+        """Get all table names from the database."""
         inspector = inspect(self.engine)
         return inspector.get_table_names()
 
     def process_specific_to_datasets(self, df, table_name):
-        df_cleaned = df  # Default assignment to prevent undefined variable issues
+        """Process DataFrame based on the specific dataset."""
+        df_cleaned = df  # Default assignment
 
-        if 'city_weather' in table_name:
-            df['date'] = pd.to_datetime(df['date'])
-            df['hour'] = df['hour'].apply(lambda x: f"{x // 100:02}:{x % 100:02}:00")
-            df['datetime'] = pd.to_datetime(df['date'].astype(str) + ' ' + df['hour'])
-            df = df.drop(columns=['date', 'hour'])
-            df = df.drop(columns=['chanceofrain', 'chanceoffog', 'chanceofsnow', 'chanceofthunder', 'precip', 'visibility'])
-            df_cleaned = self.cleaning_obj.remove_outliers_iqr(df)
+        try:
+            # Apply cleaning based on the table name
+            if 'city_weather' in table_name:
+                df = self.cleaning_obj.merge_h_d(df)
+                columns_to_drop = ['date', 'hour', 'chanceofrain', 'chanceoffog', 'chanceofsnow', 'chanceofthunder']
+                df_cleaned.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True, errors='ignore')
+                df_cleaned = self.cleaning_obj.city_routes_ro(df)
+                
+                
+                df_cleaned['datetime'] = pd.to_datetime(df_cleaned['datetime'], errors='coerce')
 
-        elif 'drivers' in table_name:
-            df = df.drop(columns=['gender'])
-            mean_experience = df['experience'][df['experience'] >= 0].mean()
-            df['experience'] = df['experience'].apply(lambda x: mean_experience if x < 0 else x)
+            elif 'drivers' in table_name:
+                df = self.cleaning_obj.exp(df)
+                df = self.cleaning_obj.fill_drivers(df)
+                df_cleaned = self.cleaning_obj.drivers_ro(df)
 
-            for column in ['driving_style']:
-                mode_value = df[column].mode()[0]
-                df[column] = df[column].fillna(mode_value)
+            elif 'truck_schedule' in table_name:
+                df['estimated_arrival'] = pd.to_datetime(df['estimated_arrival'], errors='coerce')
+                df_cleaned = df  # Preserving df if no further cleaning is specified
 
-            for column in ['age', 'experience']:
-                Q1 = df[column].quantile(0.25)
-                Q3 = df[column].quantile(0.75)
-                IQR = Q3 - Q1
-                lower_bound = Q1 - 1.5 * IQR
-                upper_bound = Q3 + 1.5 * IQR
-                df = df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
+            elif 'routes_weather' in table_name:
+                columns_to_drop = ['chanceofrain', 'chanceoffog', 'chanceofsnow', 'chanceofthunder']
+                df_cleaned.drop(columns=[col for col in columns_to_drop if col in df.columns], inplace=True, errors='ignore')
+                df_cleaned = self.cleaning_obj.city_routes_ro(df)
+                
 
-            df_cleaned = df
+            elif 'traffic' in table_name:
+                df = self.cleaning_obj.merge_h_d(df)
+                df.drop(columns=['date', 'hour'], inplace=True, errors='ignore')
+                if 'no_of_vehicles' in df.columns:
+                    df['no_of_vehicles'] = df['no_of_vehicles'].fillna(df['no_of_vehicles'].mode()[0])
+                df_cleaned = self.cleaning_obj.remove_outliers_iqr(df)
 
-        elif 'truck_schedule' in table_name:
-            df['estimated_arrival'] = pd.to_datetime(df['estimated_arrival']).dt.strftime('%Y-%m-%d %H:%M:%S')
-        
-        elif 'routes_weather' in table_name:
-            df = df.drop(columns=['chanceofrain', 'chanceoffog', 'chanceofsnow', 'chanceofthunder', 'precip', 'visibility'])
-            df_cleaned = self.cleaning_obj.remove_outliers_iqr(df)
+            elif 'trucks' in table_name:
+                df.dropna(subset=['load_capacity_pounds', 'fuel_type'], inplace=True)
+                df_cleaned = self.cleaning_obj.trucks_ro(df)
 
-        elif 'traffic' in table_name:
-            df['date'] = pd.to_datetime(df['date'])
-            df['hour'] = df['hour'].apply(lambda x: f"{x // 100:02}:{x % 100:02}:00")
-            df['datetime'] = pd.to_datetime(df['date'].astype(str) + ' ' + df['hour'])
-            df = df.drop(columns=['date', 'hour'])
-            mode_value = df['no_of_vehicles'].mode()[0]
-            df['no_of_vehicles'] = df['no_of_vehicles'].fillna(mode_value)
-            df_cleaned = self.cleaning_obj.remove_outliers_iqr(df)
+            elif 'routes' in table_name:
+                df_cleaned = self.cleaning_obj.remove_outliers_iqr(df)
 
-        elif 'trucks' in table_name:
-            df = df.dropna(subset=['load_capacity_pounds', 'fuel_type'])
-
-            for column in ['truck_age']:
-                Q1 = df[column].quantile(0.25)
-                Q3 = df[column].quantile(0.75)
-                IQR = Q3 - Q1
-                lower_bound = Q1 - 1.5 * IQR
-                upper_bound = Q3 + 1.5 * IQR
-                df_cleaned = df[(df[column] >= lower_bound) & (df[column] <= upper_bound)]
-
+        except Exception as ex:
+            print(f"Error processing {table_name}: {ex}")
+            return df  # In case of error, return the original unprocessed DataFrame
         return df_cleaned
 
     def main(self):
+        """Run the data cleaning pipeline."""
         try:
             tables = self.get_all_tables()
             for table_name in tables:
                 if not table_name.endswith('_cleaned'):  # Skip already cleaned tables
                     print(f"Processing table: {table_name}")
+                    
                     df = self.cleaning_obj.read_table(table_name)
+                    
+                    # Check if DataFrame is empty
+                    if df.empty:
+                        print(f"Skipping empty table: {table_name}")
+                        continue
+                    
                     df = self.cleaning_obj.drop_duplicates(df)
+                    
                     df_cleaned = self.process_specific_to_datasets(df, table_name)
-                    df_cleaned = self.cleaning_obj.add_date(df_cleaned)
+                    
+                    df_cleaned = self.cleaning_obj.add_date(df_cleaned)  # Add event_date first
                     df_cleaned = self.cleaning_obj.add_index_column(df_cleaned)
-                    # Save the cleaned DataFrame back to the database
-                    self.cleaning_obj.save_cleaned_data(df_cleaned, table_name)
+
+                    # Save the cleaned DataFrame as a feature group in Hopsworks
+                    feature_group = self.cleaning_obj.save_cleaned_data_hopsworks(df_cleaned, table_name)
+                    if feature_group:
+                        self.cleaning_obj.configure_and_compute_statistics(feature_group)
+
+            print("All tables processed successfully.")
 
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred during the pipeline execution: {e}")
             raise e
+
 
 if __name__ == '__main__':
     try:
         print(">>>> DATA CLEANING <<<<")
-        obj = DataCleaningPipeline()
-        obj.main()
+        pipeline = DataCleaningPipeline()
+        pipeline.main()
         print(">>>> STAGE COMPLETED <<<<")
     except Exception as e:
         print(f"An error occurred: {e}")
