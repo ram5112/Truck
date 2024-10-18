@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/notebooks/mlruns/0/badb86b90c5f4a4c9a6f6f2067985695/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: badb86b90c5f4a4c9a6f6f2067985695
+run_name: Random Forest
+run_uuid: badb86b90c5f4a4c9a6f6f2067985695
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729282756830
+status: 1
+tags: []
+user_id: rammaruthi

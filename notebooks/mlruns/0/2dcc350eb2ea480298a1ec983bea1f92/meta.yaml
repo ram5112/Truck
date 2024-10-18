@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/notebooks/mlruns/0/2dcc350eb2ea480298a1ec983bea1f92/artifacts
+end_time: 1729282844973
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2dcc350eb2ea480298a1ec983bea1f92
+run_name: Logistic Regression
+run_uuid: 2dcc350eb2ea480298a1ec983bea1f92
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729282842590
+status: 3
+tags: []
+user_id: rammaruthi
