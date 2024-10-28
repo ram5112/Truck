@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1729716393049
+current_stage: None
+description: ''
+last_updated_timestamp: 1729716393049
+name: Final_Model
+run_id: 4d3f20000add4cf6b656703ae5b09ce1
+run_link: ''
+source: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/4d3f20000add4cf6b656703ae5b09ce1/artifacts/Random_Forest
+status: READY
+status_message: null
+storage_location: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/4d3f20000add4cf6b656703ae5b09ce1/artifacts/Random_Forest
+user_id: null
+version: 1

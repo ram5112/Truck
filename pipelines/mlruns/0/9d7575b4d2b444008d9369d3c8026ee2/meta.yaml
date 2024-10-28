@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/9d7575b4d2b444008d9369d3c8026ee2/artifacts
+deleted_time: 1729716344713
+end_time: 1729285447482
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 9d7575b4d2b444008d9369d3c8026ee2
+run_name: Logistic Regression
+run_uuid: 9d7575b4d2b444008d9369d3c8026ee2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729285444107
+status: 3
+tags: []
+user_id: rammaruthi

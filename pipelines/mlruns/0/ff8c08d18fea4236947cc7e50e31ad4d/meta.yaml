@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/ff8c08d18fea4236947cc7e50e31ad4d/artifacts
+deleted_time: 1729716241483
+end_time: 1729299479422
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: ff8c08d18fea4236947cc7e50e31ad4d
+run_name: XGBoost
+run_uuid: ff8c08d18fea4236947cc7e50e31ad4d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729299432131
+status: 3
+tags: []
+user_id: rammaruthi

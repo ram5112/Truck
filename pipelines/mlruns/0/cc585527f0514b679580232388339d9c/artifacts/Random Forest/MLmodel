@@ -1,0 +1,153 @@
+artifact_path: Random Forest
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.0
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.2
+mlflow_version: 2.16.2
+model_size_bytes: 13505367
+model_uuid: 790b7ba9565c4c70870566c19027fafb
+run_id: cc585527f0514b679580232388339d9c
+signature:
+  inputs: '[{"type": "double", "name": "route_avg_temp", "required": true}, {"type":
+    "double", "name": "route_avg_wind_speed", "required": true}, {"type": "double",
+    "name": "route_precip", "required": true}, {"type": "double", "name": "route_avg_humidity",
+    "required": true}, {"type": "double", "name": "route_visibility", "required":
+    true}, {"type": "double", "name": "route_avg_pressure", "required": true}, {"type":
+    "double", "name": "distance", "required": true}, {"type": "double", "name": "average_hours",
+    "required": true}, {"type": "double", "name": "origin_temp", "required": true},
+    {"type": "double", "name": "origin_wind_speed", "required": true}, {"type": "double",
+    "name": "origin_precip", "required": true}, {"type": "double", "name": "origin_humidity",
+    "required": true}, {"type": "double", "name": "origin_visibility", "required":
+    true}, {"type": "double", "name": "origin_pressure", "required": true}, {"type":
+    "double", "name": "dest_temp", "required": true}, {"type": "double", "name": "dest_wind_speed",
+    "required": true}, {"type": "double", "name": "dest_precip", "required": true},
+    {"type": "double", "name": "dest_humidity", "required": true}, {"type": "double",
+    "name": "dest_visibility", "required": true}, {"type": "double", "name": "dest_pressure",
+    "required": true}, {"type": "double", "name": "avg_no_of_vehicles", "required":
+    true}, {"type": "double", "name": "truck_age", "required": true}, {"type": "double",
+    "name": "load_capacity_pounds", "required": true}, {"type": "double", "name":
+    "mileage_mpg", "required": true}, {"type": "double", "name": "age", "required":
+    true}, {"type": "double", "name": "experience", "required": true}, {"type": "double",
+    "name": "average_speed_mph", "required": true}, {"type": "double", "name": "accident",
+    "required": true}, {"type": "double", "name": "ratings", "required": true}, {"type":
+    "long", "name": "is_midnight", "required": true}, {"type": "double", "name": "route_description_Blowing
+    snow", "required": true}, {"type": "double", "name": "route_description_Clear",
+    "required": true}, {"type": "double", "name": "route_description_Cloudy", "required":
+    true}, {"type": "double", "name": "route_description_Fog", "required": true},
+    {"type": "double", "name": "route_description_Freezing drizzle", "required": true},
+    {"type": "double", "name": "route_description_Freezing fog", "required": true},
+    {"type": "double", "name": "route_description_Heavy rain", "required": true},
+    {"type": "double", "name": "route_description_Heavy rain at times", "required":
+    true}, {"type": "double", "name": "route_description_Heavy snow", "required":
+    true}, {"type": "double", "name": "route_description_Light drizzle", "required":
+    true}, {"type": "double", "name": "route_description_Light freezing rain", "required":
+    true}, {"type": "double", "name": "route_description_Light rain", "required":
+    true}, {"type": "double", "name": "route_description_Light rain shower", "required":
+    true}, {"type": "double", "name": "route_description_Light sleet", "required":
+    true}, {"type": "double", "name": "route_description_Light sleet showers", "required":
+    true}, {"type": "double", "name": "route_description_Light snow", "required":
+    true}, {"type": "double", "name": "route_description_Mist", "required": true},
+    {"type": "double", "name": "route_description_Moderate or heavy freezing rain",
+    "required": true}, {"type": "double", "name": "route_description_Moderate or heavy
+    rain shower", "required": true}, {"type": "double", "name": "route_description_Moderate
+    or heavy rain with thunder", "required": true}, {"type": "double", "name": "route_description_Moderate
+    or heavy sleet", "required": true}, {"type": "double", "name": "route_description_Moderate
+    or heavy sleet showers", "required": true}, {"type": "double", "name": "route_description_Moderate
+    or heavy snow showers", "required": true}, {"type": "double", "name": "route_description_Moderate
+    or heavy snow with thunder", "required": true}, {"type": "double", "name": "route_description_Moderate
+    rain", "required": true}, {"type": "double", "name": "route_description_Moderate
+    rain at times", "required": true}, {"type": "double", "name": "route_description_Moderate
+    snow", "required": true}, {"type": "double", "name": "route_description_Overcast",
+    "required": true}, {"type": "double", "name": "route_description_Partly cloudy",
+    "required": true}, {"type": "double", "name": "route_description_Patchy heavy
+    snow", "required": true}, {"type": "double", "name": "route_description_Patchy
+    light drizzle", "required": true}, {"type": "double", "name": "route_description_Patchy
+    light rain", "required": true}, {"type": "double", "name": "route_description_Patchy
+    light rain with thunder", "required": true}, {"type": "double", "name": "route_description_Patchy
+    light snow", "required": true}, {"type": "double", "name": "route_description_Patchy
+    light snow with thunder", "required": true}, {"type": "double", "name": "route_description_Patchy
+    moderate snow", "required": true}, {"type": "double", "name": "route_description_Patchy
+    rain possible", "required": true}, {"type": "double", "name": "route_description_Patchy
+    sleet possible", "required": true}, {"type": "double", "name": "route_description_Patchy
+    snow possible", "required": true}, {"type": "double", "name": "route_description_Sunny",
+    "required": true}, {"type": "double", "name": "route_description_Thundery outbreaks
+    possible", "required": true}, {"type": "double", "name": "route_description_Torrential
+    rain shower", "required": true}, {"type": "double", "name": "origin_description_Blowing
+    snow", "required": true}, {"type": "double", "name": "origin_description_Cloudy",
+    "required": true}, {"type": "double", "name": "origin_description_Heavy freezing
+    drizzle", "required": true}, {"type": "double", "name": "origin_description_Heavy
+    rain", "required": true}, {"type": "double", "name": "origin_description_Heavy
+    snow", "required": true}, {"type": "double", "name": "origin_description_Light
+    drizzle", "required": true}, {"type": "double", "name": "origin_description_Light
+    freezing rain", "required": true}, {"type": "double", "name": "origin_description_Light
+    rain", "required": true}, {"type": "double", "name": "origin_description_Light
+    rain shower", "required": true}, {"type": "double", "name": "origin_description_Light
+    snow", "required": true}, {"type": "double", "name": "origin_description_Mist",
+    "required": true}, {"type": "double", "name": "origin_description_Moderate or
+    heavy freezing rain", "required": true}, {"type": "double", "name": "origin_description_Moderate
+    or heavy rain shower", "required": true}, {"type": "double", "name": "origin_description_Moderate
+    or heavy rain with thunder", "required": true}, {"type": "double", "name": "origin_description_Moderate
+    rain", "required": true}, {"type": "double", "name": "origin_description_Moderate
+    rain at times", "required": true}, {"type": "double", "name": "origin_description_Moderate
+    snow", "required": true}, {"type": "double", "name": "origin_description_Overcast",
+    "required": true}, {"type": "double", "name": "origin_description_Partly cloudy",
+    "required": true}, {"type": "double", "name": "origin_description_Patchy heavy
+    snow", "required": true}, {"type": "double", "name": "origin_description_Patchy
+    light drizzle", "required": true}, {"type": "double", "name": "origin_description_Patchy
+    light rain with thunder", "required": true}, {"type": "double", "name": "origin_description_Patchy
+    light snow", "required": true}, {"type": "double", "name": "origin_description_Patchy
+    moderate snow", "required": true}, {"type": "double", "name": "origin_description_Patchy
+    rain possible", "required": true}, {"type": "double", "name": "origin_description_Sunny",
+    "required": true}, {"type": "double", "name": "dest_description_Blowing snow",
+    "required": true}, {"type": "double", "name": "dest_description_Clear", "required":
+    true}, {"type": "double", "name": "dest_description_Cloudy", "required": true},
+    {"type": "double", "name": "dest_description_Fog", "required": true}, {"type":
+    "double", "name": "dest_description_Heavy freezing drizzle", "required": true},
+    {"type": "double", "name": "dest_description_Heavy rain", "required": true}, {"type":
+    "double", "name": "dest_description_Heavy snow", "required": true}, {"type": "double",
+    "name": "dest_description_Ice pellets", "required": true}, {"type": "double",
+    "name": "dest_description_Light drizzle", "required": true}, {"type": "double",
+    "name": "dest_description_Light freezing rain", "required": true}, {"type": "double",
+    "name": "dest_description_Light rain", "required": true}, {"type": "double", "name":
+    "dest_description_Light rain shower", "required": true}, {"type": "double", "name":
+    "dest_description_Light sleet", "required": true}, {"type": "double", "name":
+    "dest_description_Light snow", "required": true}, {"type": "double", "name": "dest_description_Light
+    snow showers", "required": true}, {"type": "double", "name": "dest_description_Mist",
+    "required": true}, {"type": "double", "name": "dest_description_Moderate or heavy
+    freezing rain", "required": true}, {"type": "double", "name": "dest_description_Moderate
+    or heavy rain shower", "required": true}, {"type": "double", "name": "dest_description_Moderate
+    or heavy rain with thunder", "required": true}, {"type": "double", "name": "dest_description_Moderate
+    or heavy showers of ice pellets", "required": true}, {"type": "double", "name":
+    "dest_description_Moderate or heavy sleet", "required": true}, {"type": "double",
+    "name": "dest_description_Moderate or heavy snow showers", "required": true},
+    {"type": "double", "name": "dest_description_Moderate rain", "required": true},
+    {"type": "double", "name": "dest_description_Moderate rain at times", "required":
+    true}, {"type": "double", "name": "dest_description_Moderate snow", "required":
+    true}, {"type": "double", "name": "dest_description_Overcast", "required": true},
+    {"type": "double", "name": "dest_description_Partly cloudy", "required": true},
+    {"type": "double", "name": "dest_description_Patchy heavy snow", "required": true},
+    {"type": "double", "name": "dest_description_Patchy light drizzle", "required":
+    true}, {"type": "double", "name": "dest_description_Patchy light rain", "required":
+    true}, {"type": "double", "name": "dest_description_Patchy light rain with thunder",
+    "required": true}, {"type": "double", "name": "dest_description_Patchy light snow",
+    "required": true}, {"type": "double", "name": "dest_description_Patchy moderate
+    snow", "required": true}, {"type": "double", "name": "dest_description_Patchy
+    rain possible", "required": true}, {"type": "double", "name": "dest_description_Patchy
+    snow possible", "required": true}, {"type": "double", "name": "dest_description_Sunny",
+    "required": true}, {"type": "double", "name": "dest_description_Torrential rain
+    shower", "required": true}, {"type": "double", "name": "fuel_type_gas", "required":
+    true}, {"type": "double", "name": "gender_male", "required": true}, {"type": "double",
+    "name": "driving_style_proactive", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int32", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-10-19 01:02:53.785062'

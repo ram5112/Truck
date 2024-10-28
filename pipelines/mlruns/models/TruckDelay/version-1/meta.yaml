@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1729542864523
+current_stage: None
+description: ''
+last_updated_timestamp: 1729542864523
+name: TruckDelay
+run_id: b75a9f1218f24bc6992c07dbbc5a3e4e
+run_link: ''
+source: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/b75a9f1218f24bc6992c07dbbc5a3e4e/artifacts/XGBoost
+status: READY
+status_message: null
+storage_location: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/b75a9f1218f24bc6992c07dbbc5a3e4e/artifacts/XGBoost
+user_id: null
+version: 1

@@ -1,0 +1,16 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/pipelines/mlruns/0/002e7fb8a7364022b137b87874ecd72b/artifacts
+deleted_time: 1729716241485
+end_time: 1729299539924
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 002e7fb8a7364022b137b87874ecd72b
+run_name: Random Forest
+run_uuid: 002e7fb8a7364022b137b87874ecd72b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729299514067
+status: 3
+tags: []
+user_id: rammaruthi

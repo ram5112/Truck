@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/rammaruthi/Desktop/Truck/notebooks/mlruns/0/86406d7ef9154df9a5397e5ea07a1a44/artifacts
+end_time: 1729560703474
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 86406d7ef9154df9a5397e5ea07a1a44
+run_name: XGBoost
+run_uuid: 86406d7ef9154df9a5397e5ea07a1a44
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1729560594055
+status: 3
+tags: []
+user_id: rammaruthi
