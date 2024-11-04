@@ -21,4 +21,5 @@ seaborn
 tensorflow
 openpyxl
 xgboost
--e .
+streamlit
+hopsworks
