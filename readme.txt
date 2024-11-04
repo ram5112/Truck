@@ -1,0 +1,3 @@
+Truck Delay Classification App
+
+This repository contains the source code and CI/CD setup for the Truck Delay Classification App, a machine learning-based application that predicts truck delays based on various features. The app is built with Streamlit, Docker, and deployed to AWS using ECS (Elastic Container Service) and ECR (Elastic Container Registry) with a CI/CD pipeline set up via GitHub Actions.
