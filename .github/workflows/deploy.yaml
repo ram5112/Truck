@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v3 # Automatically compatible with Node 20
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v4 # Automatically compatible with Node 20
+        uses: actions/setup-python@v4
         with:
           python-version: "3.12"
 
@@ -22,9 +22,17 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install awscli
+        continue-on-error: true # Allow step to complete even if it fails to help diagnose issues
+        shell: bash
+
+      - name: Verify Python environment
+        run: |
+          python --version
+          pip list
 
       - name: Build Docker image
         run: docker build -t truck_delay_classification_app .
+        shell: bash
 
       - name: Authenticate Docker with AWS ECR
         env:
@@ -32,14 +40,17 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 131362291480.dkr.ecr.us-east-1.amazonaws.com
+        shell: bash
 
       - name: Push Docker image to ECR
         run: |
           docker tag truck_delay_classification_app:latest 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
           docker push 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
+        shell: bash
 
       - name: Remove unused Docker layers
         run: docker system prune -f
+        shell: bash
 
   deploy:
     needs: build
@@ -51,6 +62,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 131362291480.dkr.ecr.us-east-1.amazonaws.com
+        shell: bash
 
       - name: Deploy to AWS ECS
         env:
@@ -59,6 +71,7 @@ jobs:
           AWS_REGION: us-east-1
         run: |
           aws ecs update-service --cluster truck-delay-cluster --service truck-delay-service --force-new-deployment --region $AWS_REGION
+        shell: bash
 
       - name: Notify deployment success
         run: echo "Deployment to ECS was successful."
