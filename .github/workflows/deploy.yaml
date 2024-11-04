@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3 # Updated to latest version
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4 # Updated to latest version
         with:
           python-version: "3.12"
 
@@ -37,6 +37,9 @@ jobs:
         run: |
           docker tag truck_delay_classification_app:latest 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
           docker push 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
+
+      - name: Remove unused Docker layers # Free up disk space
+        run: docker system prune -f
 
   deploy:
     needs: build
