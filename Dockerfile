@@ -7,11 +7,13 @@ WORKDIR /app
 # Copy requirements.txt into the container
 COPY requirements.txt /app/
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y build-essential
+# Install system dependencies and update pip
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential libpq-dev libcurl4-openssl-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    python -m pip install --upgrade pip
 
-
-# Install any necessary dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the entire project into the container
