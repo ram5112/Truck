@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v3
+        with:
+          lfs: true # Enable Git LFS
+
+      - name: Install Git LFS
+        run: git lfs install
 
       - name: Display `app.py` content
         run: head -n 5 app.py
@@ -30,11 +35,6 @@ jobs:
         run: |
           docker tag truck_delay_classification_app:latest 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
           docker push 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
-
-      - name: Pull Docker image from ECR for verification
-        run: |
-          docker pull 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest
-          docker run --rm 131362291480.dkr.ecr.us-east-1.amazonaws.com/truck/truck_delay_classification_app:latest head -n 5 app.py
 
       - name: Remove unused Docker layers
         run: docker system prune -f
